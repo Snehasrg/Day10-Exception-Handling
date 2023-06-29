@@ -10,26 +10,39 @@ namespace ExceptionHandling
     {
         public void GetCategory(int age)
         {
-            if (age == null || age < 1)
-            {
-                Console.WriteLine("Invalid age entered.");
-            }
 
-            if (age >= 1 && age <= 14)
+            try
             {
-                Console.WriteLine("Category: Children");
+                if (age == null || age < 1)
+                {
+                    //Console.WriteLine("Invalid age entered.");
+                    throw new InvalidAgeException("Invalid age entered.");
+                }
+
+                if (age >= 1 && age <= 14)
+                {
+                    Console.WriteLine("Category: Children");
+                }
+                else if (age >= 15 && age <= 24)
+                {
+                    Console.WriteLine("Category: Youth");
+                }
+                else if (age >= 25 && age <= 64)
+                {
+                    Console.WriteLine("Category: Adults");
+                }
+                else
+                {
+                    Console.WriteLine("Category: Seniors");
+                }
             }
-            else if (age >= 15 && age <= 24)
+            catch (InvalidAgeException ex)
             {
-                Console.WriteLine("Category: Youth");
+                Console.WriteLine(ex.Message);
             }
-            else if (age >= 25 && age <= 64)
+            catch (Exception ex)
             {
-                Console.WriteLine("Category: Adults");
-            }
-            else
-            {
-                Console.WriteLine("Category: Seniors");
+                Console.WriteLine("Error: " + ex.Message);
             }
         }
     }
